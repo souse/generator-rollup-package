@@ -1,0 +1,38 @@
+{
+  "name": "rollup-package",
+  "version": "1.0.0",
+  "description": "use rollup package components",
+  "author": "souse <chenfeng_lian@126.com>",
+  "private": false,
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "prod": "rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:souse/vue-jsbridge.git"
+  },
+  "keywords": [
+    "rollup",
+    "components"
+  ],
+  "license": "MIT",
+  "bugs": {
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "vue": "^2.5.17"
+  },
+  "devDependencies": {
+    "rollup": "^1.0.2",
+    "rollup-plugin-terser": "^4.0.1",
+    "vue": "^2.5.17"
+  },
+  "engines": {
+    "node": ">= 6.0.0",
+    "npm": ">= 3.0.0"
+  }
+}
