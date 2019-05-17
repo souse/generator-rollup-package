@@ -61,6 +61,17 @@ module.exports = class extends Generator {
     for (var i = 0; i < files.length; i++) {
       var f = files[i];
 
+      if (f == '.gitignore') {
+        var file = this.templatePath('.npmignore');
+
+        if (file) {
+          this.fs.copy(this.templatePath('.npmignore'), this.destinationPath('.gitignore'));
+        } else {
+          this.fs.copy(this.templatePath(f), this.destinationPath(f));  
+        }
+        continue;
+      }
+      
       this.fs.copy(this.templatePath(f), this.destinationPath(f));
     }
 
