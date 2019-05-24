@@ -1,9 +1,12 @@
 import path from 'path';
 // import { terser } from 'rollup-plugin-terser';
-import Resolve from 'rollup-plugin-node-resolve';
-import Commonjs from 'rollup-plugin-commonjs';
-import Babel from 'rollup-plugin-babel';
-import VuePlugin from 'rollup-plugin-vue';
+import resolve from 'rollup-plugin-node-resolve';
+import commonjs from 'rollup-plugin-commonjs';
+import babel from 'rollup-plugin-babel';
+import vue from 'rollup-plugin-vue';
+import autoprefixer from 'autoprefixer';
+import pxtorem from 'postcss-pxtorem';
+import postcss from 'rollup-plugin-postcss';
 
 export default {
   input: 'src/index.js',
@@ -15,9 +18,26 @@ export default {
   external: ['vue'],
   plugins: [
   	// terser()
-    VuePlugin(),
-    Babel(),
-    Resolve(),
-    Commonjs() 
+    postcss({
+      plugins: [
+        autoprefixer({
+          browsers: ['Android >= 4.0', 'iOS >= 7']
+        }),
+        pxtorem({
+          rootValue: 37.5,
+          propList: ['*']  
+        })
+      ]  
+    }), 
+    vue({
+      css: false
+    }),
+    babel({
+      runtimeHelpers: true,
+      // sourceMap: false,
+      extensions: ['.js', '.jsx', '.es6', '.es', '.mjs', '.vue']
+    }),
+    resolve(),
+    commonjs() 
   ]
 };
