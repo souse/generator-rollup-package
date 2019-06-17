@@ -7,13 +7,16 @@ import vue from 'rollup-plugin-vue';
 import autoprefixer from 'autoprefixer';
 import pxtorem from 'postcss-pxtorem';
 import postcss from 'rollup-plugin-postcss';
+import url from 'postcss-url';
+import purl from "rollup-plugin-url"
 
 export default {
   input: 'src/index.js',
   output: {
     file: path.resolve(__dirname, './lib', 'index.js'),
     format: 'cjs',
-    name: 'output-js-name'
+    name: 'output-js-name',
+    exports: 'named' // this for { export xxx }
   },
   external: ['vue'],
   plugins: [
@@ -26,9 +29,18 @@ export default {
         pxtorem({
           rootValue: 37.5,
           propList: ['*']  
+        }),
+        // for image in css inline means to base64
+        url({ 
+          url: 'inline'
         })
       ]  
-    }), 
+    }),
+    purl({
+      limit: 10 * 1024,
+      include: ["**/*.png"], // defaults to .svg, .png, .jpg and .gif files
+      emitFiles: true 
+    }),
     vue({
       css: false
     }),
